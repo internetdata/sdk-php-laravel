@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    // Your API key. Without one a lookup is on Unlimited, the free plan, and every
+    // lookup shares the per-minute limit of your server's one address, so a busy
+    // site sees bursts refused. A paid plan answers every field.
+    'api_key' => env('INTERNETDATA_API_KEY'),
+
+    // What to block on, in the shape of a Result. Leave it null to only enrich the
+    // request and decide in your own controllers.
+    //
+    //   'block_condition' => ['location' => ['country' => ['CU', 'IR', 'KP']]],
+    //   'block_condition' => ['asn' => ['type' => 'hosting']],
+    //   'block_condition' => [['isVpn' => true], ['isTor' => true]],
+    'block_condition' => null,
+
+    // Seconds a lookup may hold the request, and how many times to retry. Both are set
+    // for a request path rather than a script: failing open quickly beats holding a
+    // visitor while we try again.
+    'timeout' => 2.5,
+    'retries' => 0,
+
+    // Block when the lookup itself fails. Our outage should not become yours.
+    'fail_closed' => false,
+
+    // How the client address is decided. Null uses $request->ip(), which honours your
+    // TrustProxies middleware - configure that first if you are behind a proxy.
+    'ip_selector' => null,
+
+    'on_missing_field' => 'warn',
+
+    // The store from config/cache.php that answers are kept in between requests: under
+    // PHP-FPM the client, and a cache of its own, lasts one request. Null is your
+    // default store; false keeps answers in the client alone.
+    'cache_store' => null,
+];
