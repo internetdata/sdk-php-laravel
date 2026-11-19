@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.0.2 - 2026-11-19
+
+### Fixes
+
+- Require internetdata 2.13.2: a reduced answer is cached a minute at most ([`4db4487`](https://github.com/internetdata/sdk-php-laravel/commit/4db4487eded29521f8e2e797b886e626f23091a2))
+
 ## 1.0.1 - 2026-11-19
 
 ### Fixes
