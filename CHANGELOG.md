@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.0.5 - 2026-11-20
+
+### Fixes
+
+- Say rate limit where the config named a per-minute one ([`f6648d5`](https://github.com/internetdata/sdk-php-laravel/commit/f6648d5d4c1bfb54258db096bfc85a721379328e))
+
 ## 1.0.4 - 2026-11-20
 
 ### Fixes
