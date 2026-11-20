@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     // Your API key. Without one a lookup is on Unlimited, the free plan, and every
-    // lookup shares the per-minute limit of your server's one address, so a busy
+    // lookup shares the rate limit of your server's one address, so a busy
     // site sees bursts refused. A paid plan answers every field.
     'api_key' => env('INTERNETDATA_API_KEY'),
 
