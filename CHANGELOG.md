@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.0.4 - 2026-11-20
+
+### Fixes
+
+- Require internetdata 2.14.0: a paid domain answer's hosting, home page and linking domains ([`9beb399`](https://github.com/internetdata/sdk-php-laravel/commit/9beb3997a1c4e4874368713ea5890d9c437a632c))
+
 ## 1.0.3 - 2026-11-20
 
 ### Fixes
