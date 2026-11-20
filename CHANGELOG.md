@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.0.3 - 2026-11-20
+
+### Fixes
+
+- Require internetdata 2.13.3: the spec re-pinned to 2026.11.20 ([`e151ebe`](https://github.com/internetdata/sdk-php-laravel/commit/e151ebe46f7ee482beb757ea1e21da3fcb63fb0c))
+
 ## 1.0.2 - 2026-11-19
 
 ### Fixes
