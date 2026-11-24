@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.0.8 - 2026-11-24
+
+### Features
+
+- Require internetdata/internetdata 2.16.0: a condition matches a list member's elements ([`ffa1188`](https://github.com/internetdata/sdk-php-laravel/commit/ffa1188d3a9f1eeda0e7e21e80972e10c2c477d3))
+
 ## 1.0.7 - 2026-11-23
 
 ### Fixes
