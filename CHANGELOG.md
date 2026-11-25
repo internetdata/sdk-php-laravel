@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.0 - 2026-11-25
+
+### Features
+
+- Add allow_bots on internetdata/internetdata 2.17.0: let a verified crawler through ([`25e3df9`](https://github.com/internetdata/sdk-php-laravel/commit/25e3df91e1389057424318cbecaa8601489f8ba8))
+
 ## 1.0.8 - 2026-11-24
 
 ### Features
