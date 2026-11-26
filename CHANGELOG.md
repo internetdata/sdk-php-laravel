@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.1 - 2026-11-26
+
+### Features
+
+- Require internetdata/internetdata 2.18.0: a keyless answer reads without the bot, carrier, satellite and service flags ([`7916272`](https://github.com/internetdata/sdk-php-laravel/commit/7916272f3864d69ca3851781aa84a4473fa498a2))
+
 ## 1.1.0 - 2026-11-25
 
 ### Features
