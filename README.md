@@ -15,7 +15,7 @@ composer require internetdata/laravel
 
 Requires PHP 8.2 or newer and Laravel 10, 11, 12 or 13.
 
-Without an API key a lookup is on Unlimited, the free plan: the country, the network and the company behind the address, Tor, relay, anycast, carrier and satellite space, bots and the service flags, with no daily or monthly cap. Every lookup your app makes comes from your server's one address, though, so a busy site will see bursts refused. A paid plan answers every field, VPN, the proxy flags, hosting, CDN and the city among them; create a key in the [console](https://app.internetdata.io). A free account tries every field.
+Without an API key a lookup is on Unlimited, the free plan: the country, the network and the company behind the address, Tor, relay and anycast space, with no daily or monthly cap. Every lookup your app makes comes from your server's one address, though, so a busy site will see bursts refused. A paid plan answers every field, VPN, the proxy flags, hosting, CDN, bots, carrier and satellite space, the service flags and the city among them; create a key in the [console](https://app.internetdata.io). A free account tries every field.
 
 The service provider is auto-discovered. Publish the config and register the middleware:
 
@@ -52,12 +52,13 @@ Set a `block_condition` and a matching request is answered with `403` and never 
 'block_condition' => ['location' => ['country' => ['CU', 'IR', 'KP']]],
 ```
 
-A condition is written in the shape of a `Result`, and only the members you name are considered, so it can refuse on anything in the answer. The country works on every plan, and so do the first three of these:
+A condition is written in the shape of a `Result`, and only the members you name are considered, so it can refuse on anything in the answer. The country works on every plan, and so do the first two of these:
 
 ```php
 ['asn' => ['type' => 'hosting']]                          // the network's type
-[['isAnycast' => true], ['isSatellite' => true]]          // anycast and satellite space
+['isAnycast' => true]                                     // anycast space
 ['isBot' => true]                                         // crawlers, monitors and scanners
+[['isSatellite' => true], ['isCarrier' => true]]          // satellite and mobile carrier space
 [['isHosting' => true], ['isCdn' => true]]                // traffic from servers, not people
 [['isVpn' => true], ['isTor' => true], ['isResproxy' => true]]  // anonymity: a list is OR
 ['isVpn' => true, 'vpn' => ['provider' => 'nordvpn']]     // one provider
@@ -110,7 +111,7 @@ Beyond a few million distinct visitors a day, stop calling the API per request: 
 
 ## Absent is not false
 
-Unlimited, with a key or without one, leaves out `isVpn`, `isHosting`, `isCdn` and the four proxy flags, the detail behind them, and the paid members inside `location`, `asn`, `company` and `abuse`, such as `location->city`. A property your plan does not include is `null`, which means "not in your plan" rather than "checked, and no".
+Unlimited, with a key or without one, leaves out `isVpn`, `isHosting`, `isCdn`, the four proxy flags, `isBot`, `isCarrier`, `isSatellite` and the service flags, the detail behind them, and the paid members inside `location`, `asn`, `company` and `abuse`, such as `location->city`. A property your plan does not include is `null`, which means "not in your plan" rather than "checked, and no". The eight flags `isBot`, `isCarrier`, `isSatellite`, `isSsh`, `isSmtp`, `isWeb`, `isDnsResolver` and `isBittorrent` are plain booleans and read `false` there, though a condition naming one is still warned about.
 
 ```php
 $lookup->result->isVpn ?? false   // when you only want the flag

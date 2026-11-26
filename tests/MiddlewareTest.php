@@ -160,8 +160,8 @@ final class MiddlewareTest extends TestCase
         self::assertSame(403, self::pass($match, self::request())->getStatusCode());
     }
 
-    // `is_bot` is on every plan, so the condition is judged without a key, from a public
-    // visitor read through the framework's own accessor.
+    // A bot is a paid answer's, so the condition is judged on an answer that serves `is_bot`,
+    // from a public visitor read through the framework's own accessor.
     public function testABotConditionRefusesABotsAddressAndLetsAnotherThrough(): void
     {
         $bot = self::middleware(new MwOptions(
@@ -171,7 +171,7 @@ final class MiddlewareTest extends TestCase
         self::assertSame(403, self::pass($bot, self::request(ip: '66.249.66.1'))->getStatusCode());
 
         $person = self::middleware(new MwOptions(
-            client: self::client(self::serving(Stub::answer(self::PUBLIC_IP))),
+            client: self::client(self::serving(Stub::answer(self::PUBLIC_IP, ['is_bot' => false]))),
             blockCondition: ['isBot' => true],
         ));
         $request = self::request(ip: self::PUBLIC_IP);
