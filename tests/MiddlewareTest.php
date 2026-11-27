@@ -143,21 +143,43 @@ final class MiddlewareTest extends TestCase
         self::assertSame('{"why":"AT"}', $response->getContent());
     }
 
+    // The network's type is a paid answer's, so the condition is judged on an answer that serves it.
     public function testAConditionReachesAnyMemberOfTheAnswer(): void
     {
+        $paid = Stub::answer(self::PUBLIC_IP, ['asn' => [...Stub::answer(self::PUBLIC_IP)['asn'], 'type' => 'hosting']]);
         $mismatch = self::middleware(new MwOptions(
-            client: self::client(self::serving(Stub::answer(self::PUBLIC_IP))),
+            client: self::client(self::serving($paid)),
             ipSelector: fn (Request $r): string => self::PUBLIC_IP,
             blockCondition: ['asn' => ['type' => 'isp']],
         ));
         self::assertSame(200, self::pass($mismatch, self::request())->getStatusCode());
 
         $match = self::middleware(new MwOptions(
-            client: self::client(self::serving(Stub::answer(self::PUBLIC_IP))),
+            client: self::client(self::serving($paid)),
             ipSelector: fn (Request $r): string => self::PUBLIC_IP,
             blockCondition: ['asn' => ['type' => 'HOSTING']],
         ));
         self::assertSame(403, self::pass($match, self::request())->getStatusCode());
+    }
+
+    // Unlimited leaves the network's type out, so a condition on it never matches there and is
+    // warned about by its path.
+    public function testANetworkTypeConditionOnAnAnswerWithoutItNeverMatches(): void
+    {
+        $warnings = [];
+        $middleware = self::middleware(new MwOptions(
+            client: self::client(self::serving(Stub::answer(self::PUBLIC_IP))),
+            ipSelector: fn (Request $r): string => self::PUBLIC_IP,
+            blockCondition: ['asn' => ['type' => 'hosting']],
+            onWarn: function (string $m) use (&$warnings): void {
+                $warnings[] = $m;
+            },
+        ));
+        $request = self::request();
+        self::assertSame(200, self::pass($middleware, $request)->getStatusCode());
+        self::assertSame('', InternetDataMiddleware::lookup($request)?->result->asn->type);
+        self::assertCount(1, $warnings);
+        self::assertStringContainsString('asn.type', $warnings[0]);
     }
 
     // A bot is a paid answer's, so the condition is judged on an answer that serves `is_bot`,
