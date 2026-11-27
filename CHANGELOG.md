@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.2 - 2026-11-27
+
+### Features
+
+- Require internetdata/internetdata 2.19.0: a keyless answer reads without the AS's type ([`03a92fa`](https://github.com/internetdata/sdk-php-laravel/commit/03a92fa365a17528f55714fbd6b21095459fceec))
+
 ## 1.1.1 - 2026-11-26
 
 ### Features
