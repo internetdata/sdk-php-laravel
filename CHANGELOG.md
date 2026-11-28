@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff.
 
+## 1.1.3 - 2026-11-28
+
+### Features
+
+- Require internetdata/internetdata 2.20.0: allowBots sends only a crawler's User-Agent, at most four an address ([`a361f52`](https://github.com/internetdata/sdk-php-laravel/commit/a361f52403bb6fe8f56aa5dded6cf2b8592af146))
+
 ## 1.1.2 - 2026-11-27
 
 ### Features
